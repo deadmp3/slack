@@ -1,23 +1,27 @@
-const webpack = require('webpack');
+const path = require('path');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   mode: process.env.NODE_ENV || 'development',
-  entry: [
-    `${__dirname}/src/index.js`,
-  ],
+  devtool: process.env.NODE_ENV === 'development' ? 'inline-source-map' : '',
+  entry: {
+    main: ['./app', './assets/css/app.css'],
+  },
   externals: {
     gon: 'gon',
+  },
+  output: {
+    path: path.join(__dirname, 'dist', 'public'),
+    publicPath: '/',
+    filename: 'assets/[name].js',
   },
   resolve: {
     extensions: ['.js', '.jsx'],
   },
-  output: {
-    publicPath: '/assets/'
-  },
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: 'babel-loader',
       },
@@ -27,11 +31,9 @@ module.exports = {
       },
     ],
   },
-  // plugins: [
-    // new webpack.ProvidePlugin({
-    //   $: 'jquery',
-    //   jQuery: 'jquery',
-    //   'window.jQuery': 'jquery',
-    // }),
-  // ],
+  plugins: [
+    new CopyWebpackPlugin([
+      { from: 'assets/static' },
+    ]),
+  ],
 };

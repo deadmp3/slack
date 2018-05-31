@@ -1,3 +1,4 @@
+import '@babel/polyfill';
 import getApp from '..';
 
-getApp().listen(4000);
+getApp().listen(process.env.PORT || 4000);
