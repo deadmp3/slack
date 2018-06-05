@@ -1,18 +1,9 @@
 import React from 'react';
-import { channelsSelector } from '../selectors';
-import connect from '../connect';
+import ChannelsList from './ChannelsList';
+import Chat from './Chat';
 
-const mapStateToProps = (state) => {
-  const props = {
-    channels: channelsSelector(state),
-  };
-  return props;
-};
-
-@connect(mapStateToProps)
-export default class App extends React.Component {
-  render() {
-    const { channels } = this.props;
-    return channels.map(({ id, name }) => <div key={id}>{name}</div>);
-  }
-}
+export default () => (
+  <div className="row">
+    <ChannelsList className="col-4" />
+    <Chat className="col-8" />
+  </div>);
