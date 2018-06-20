@@ -1,13 +1,13 @@
 {
   "name": "slack",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "messenger",
   "main": "dist/bin/slack.js",
   "scripts": {
     "nodemon": "nodemon",
     "test": "jest",
     "babel-node": "babel-node",
-    "start": "node ./src/bin/slack.js",
+    "start": "node ./dist/bin/slack.js",
     "eslint": "eslint",
     "webpack": "webpack",
     "build-server": "babel server --out-dir dist --source-maps inline",
