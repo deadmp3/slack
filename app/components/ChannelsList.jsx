@@ -1,5 +1,6 @@
 import React from 'react';
 import cn from 'classnames';
+import NewChannelForm from './NewChannelForm';
 import { channelsSelector } from '../selectors';
 import connect from '../connect';
 
@@ -19,20 +20,29 @@ export default class ChannelsList extends React.Component {
   }
 
   render() {
-    const { className, channels, currentChannelId } = this.props;
+    const {
+      className,
+      channels,
+      currentChannelId,
+      addChannel,
+      channelCreatingState,
+    } = this.props;
     return (
       <ul className={className}>
         {channels.map(({ id, name }) => (
-          <li>
-            <a
-              key={id}
+          <li key={id}>
+            <button
               className={cn({ 'font-weight-bold': id === currentChannelId })}
               onClick={this.selectChannel(id)}
-              href
             >
               {name}
-            </a>
-          </li>))}
+            </button>
+          </li>
+        ))}
+        <NewChannelForm
+          addChannel={addChannel}
+          channelCreatingState={channelCreatingState}
+        />
       </ul>
     );
   }

@@ -3,7 +3,11 @@ import { handleActions } from 'redux-actions';
 import { reducer as formReducer } from 'redux-form';
 import * as actions from '../actions';
 
-const channels = handleActions({}, {});
+const channels = handleActions({
+  [actions.addChannelSuccess](state, { payload: { channel } }) {
+    return { ...state, [channel.id]: channel };
+  },
+}, {});
 
 const messageCreatingState = handleActions({
   [actions.addMessageRequest]() {
