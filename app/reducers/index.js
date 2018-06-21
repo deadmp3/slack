@@ -41,6 +41,9 @@ const currentChannelId = handleActions({
   [actions.selectChannel](state, { payload: { id } }) {
     return id;
   },
+  [actions.addChannelSuccess](state, { payload: { channel: { id } } }) {
+    return id;
+  },
 }, 0);
 
 export default combineReducers({
