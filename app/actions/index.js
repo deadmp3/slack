@@ -35,3 +35,4 @@ export const addChannel = attrChannel => async (dispatch) => {
   }
 };
 
+export const toggleModalState = createAction('MODAL_STATE_TOGGLE');

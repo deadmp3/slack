@@ -9,6 +9,7 @@ const mapStateToProps = (state) => {
     channels: channelsSelector(state),
     currentChannelId: state.currentChannelId,
     channelCreatingState: state.channelCreatingState,
+    modalFormActive: state.modalFormActive,
   };
   return props;
 };
@@ -27,6 +28,8 @@ export default class ChannelsList extends React.Component {
       currentChannelId,
       addChannel,
       channelCreatingState,
+      modalFormActive,
+      toggleModalState,
     } = this.props;
     return (
       <ul className={className}>
@@ -43,6 +46,8 @@ export default class ChannelsList extends React.Component {
         <NewChannelForm
           addChannel={addChannel}
           channelCreatingState={channelCreatingState}
+          modalFormActive={modalFormActive}
+          toggleModalState={toggleModalState}
         />
       </ul>
     );

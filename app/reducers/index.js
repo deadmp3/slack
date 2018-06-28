@@ -46,6 +46,12 @@ const currentChannelId = handleActions({
   },
 }, 0);
 
+const modalFormActive = handleActions({
+  [actions.toggleModalState](state) {
+    return !state;
+  },
+}, false);
+
 export default combineReducers({
   channelCreatingState,
   channels,
@@ -53,4 +59,5 @@ export default combineReducers({
   messages,
   currentChannelId,
   form: formReducer,
+  modalFormActive,
 });
