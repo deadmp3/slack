@@ -35,4 +35,20 @@ export const addChannel = attrChannel => async (dispatch) => {
   }
 };
 
-export const toggleModalState = createAction('MODAL_STATE_TOGGLE');
+export const editChannelRequest = createAction('CHANNEL_EDIT_REQUEST');
+export const editChannelSuccess = createAction('CHANNEL_EDIT_SUCCESS');
+export const editChannelFailure = createAction('CHANNEL_EDIT_FAILURE');
+export const editChannel = (channelId, attrChannel) => async (dispatch) => {
+  try {
+    dispatch(editChannelRequest());
+    const { data: { data: { attributes } } } =
+      await axios.patch(routes.editChannelsUrl(channelId), { data: { attributes: attrChannel } });
+    dispatch(editChannelRequest({ channel: attributes }));
+  } catch (e) {
+    console.log(e);
+    dispatch(editChannelFailure());
+  }
+};
+
+export const toggleModalStateAddChannel = createAction('MODAL_STATE_TOGGLE_ADD_CHANNEL');
+export const toggleModalStateEditChannel = createAction('MODAL_STATE_TOGGLE_EDIT_CHANNEL');

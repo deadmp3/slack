@@ -14,8 +14,22 @@ const channelCreatingState = handleActions({
     return 'failed';
   },
 }, 'none');
+const channelEditingState = handleActions({
+  [actions.editChannelRequest]() {
+    return 'requested';
+  },
+  [actions.editChannelSuccess]() {
+    return 'successed';
+  },
+  [actions.editChannelFailure]() {
+    return 'failed';
+  },
+}, 'none');
 const channels = handleActions({
   [actions.addChannelSuccess](state, { payload: { channel } }) {
+    return { ...state, [channel.id]: channel };
+  },
+  [actions.editChannelSuccess](state, { payload: { channel } }) {
     return { ...state, [channel.id]: channel };
   },
 }, {});
@@ -46,18 +60,27 @@ const currentChannelId = handleActions({
   },
 }, 0);
 
-const modalFormActive = handleActions({
-  [actions.toggleModalState](state) {
+const modalFormAddChannelActive = handleActions({
+  [actions.toggleModalStateAddChannel](state) {
+    return !state;
+  },
+
+}, false);
+
+const modalFormEditChannelActive = handleActions({
+  [actions.toggleModalStateEditChannel](state) {
     return !state;
   },
 }, false);
 
 export default combineReducers({
   channelCreatingState,
+  channelEditingState,
   channels,
   messageCreatingState,
   messages,
   currentChannelId,
   form: formReducer,
-  modalFormActive,
+  modalFormAddChannelActive,
+  modalFormEditChannelActive,
 });

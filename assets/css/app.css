@@ -1,3 +1,4 @@
-flex-auto {
+.flex-auto {
   flex: auto;
+  margin-right: 10px;
 }
