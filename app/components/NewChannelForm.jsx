@@ -12,21 +12,21 @@ export default class NewChannelForm extends React.Component {
     const {
       channelCreatingState,
       handleSubmit,
-      modalFormAddChannelActive,
-      toggleModalStateAddChannel,
+      modalForm,
+      setModalForm,
+      clearModalForm,
     } = this.props;
     const disabled = channelCreatingState === 'requested';
 
     return (
       <div>
         <div>
-          <Button color="danger" onClick={toggleModalStateAddChannel}>Add</Button>
-          <Modal isOpen={modalFormAddChannelActive} toggle={toggleModalStateAddChannel}>
-            <ModalHeader toggle={toggleModalStateAddChannel}>Add channel</ModalHeader>
+          <Modal isOpen={modalForm === 'AddChannel'} toggle={clearModalForm}>
+            <ModalHeader toggle={clearModalForm}>Add channel</ModalHeader>
             <ModalBody>
               <Form inline autoComplete="off" action="" onSubmit={handleSubmit(this.addChannel)}>
                 <Field className="flex-auto" name="name" required component="input" type="text" />
-                <Button type="submit" className="btn btn-primary" disabled={disabled} onClick={toggleModalStateAddChannel}>OK</Button>
+                <Button type="submit" className="btn btn-primary" disabled={disabled}>OK</Button>
               </Form>
             </ModalBody>
           </Modal>

@@ -12,6 +12,7 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { createStore, applyMiddleware, compose } from 'redux';
 import reducers from './reducers';
+import addSocketHandlers from './socket';
 import App from './components/App';
 
 const preloadedState = {
@@ -31,6 +32,7 @@ const store = createStore(
 );
 
 // const socket = io();
+addSocketHandlers(store);
 
 render(
   <Provider store={store}>

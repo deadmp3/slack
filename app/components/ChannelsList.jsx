@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button, ButtonGroup } from 'reactstrap';
 import cn from 'classnames';
 import NewChannelForm from './NewChannelForm';
 import { channelsSelector } from '../selectors';
@@ -9,7 +10,7 @@ const mapStateToProps = (state) => {
     channels: channelsSelector(state),
     currentChannelId: state.currentChannelId,
     channelCreatingState: state.channelCreatingState,
-    modalFormAddChannelActive: state.modalFormAddChannelActive,
+    modalForm: state.modalForm,
   };
   return props;
 };
@@ -28,28 +29,28 @@ export default class ChannelsList extends React.Component {
       currentChannelId,
       addChannel,
       channelCreatingState,
-      modalFormAddChannelActive,
-      toggleModalStateAddChannel,
+      modalForm,
+      setModalForm,
     } = this.props;
     return (
-      <ul className={className}>
-        {channels.map(({ id, name }) => (
-          <li key={id}>
-            <button
-              className={cn({ 'font-weight-bold': id === currentChannelId })}
-              onClick={this.selectChannel(id)}
-            >
-              {name}
-            </button>
-          </li>
-        ))}
+      <ButtonGroup vertical className={className}>
+        <Button onClick={() => setModalForm('AddChannel')}>Add</Button>
         <NewChannelForm
           addChannel={addChannel}
           channelCreatingState={channelCreatingState}
-          modalFormAddChannelActive={modalFormAddChannelActive}
-          toggleModalStateAddChannel={toggleModalStateAddChannel}
+          modalForm={modalForm}
+          setModalForm={setModalForm}
         />
-      </ul>
+        {channels.map(({ id, name }) => (
+          <Button
+            key={id}
+            className={cn({ 'font-weight-bold': id === currentChannelId })}
+            onClick={this.selectChannel(id)}
+          >
+            {name}
+          </Button>
+        ))}
+      </ButtonGroup>
     );
   }
 }

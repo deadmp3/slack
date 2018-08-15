@@ -38,17 +38,30 @@ export const addChannel = attrChannel => async (dispatch) => {
 export const editChannelRequest = createAction('CHANNEL_EDIT_REQUEST');
 export const editChannelSuccess = createAction('CHANNEL_EDIT_SUCCESS');
 export const editChannelFailure = createAction('CHANNEL_EDIT_FAILURE');
-export const editChannel = (channelId, attrChannel) => async (dispatch) => {
+export const editChannel = (channelId, name) => async (dispatch) => {
   try {
     dispatch(editChannelRequest());
-    const { data: { data: { attributes } } } =
-      await axios.patch(routes.editChannelsUrl(channelId), { data: { attributes: attrChannel } });
-    dispatch(editChannelRequest({ channel: attributes }));
+    await axios.patch(routes.channelUrl(channelId), { data: { attributes: { name } } });
+    dispatch(editChannelSuccess({ channelId, name }));
   } catch (e) {
     console.log(e);
     dispatch(editChannelFailure());
   }
 };
 
-export const toggleModalStateAddChannel = createAction('MODAL_STATE_TOGGLE_ADD_CHANNEL');
-export const toggleModalStateEditChannel = createAction('MODAL_STATE_TOGGLE_EDIT_CHANNEL');
+export const removeChannelRequest = createAction('CHANNEL_REMOVEL_REQUEST');
+export const removeChannelSuccess = createAction('CHANNEL_REMOVEL_SUCCESS');
+export const removeChannelFailure = createAction('CHANNEL_REMOVEL_FAILURE');
+export const removeChannel = channelId => async (dispatch) => {
+  try {
+    dispatch(removeChannelRequest());
+    await axios.delete(routes.channelUrl(channelId));
+    dispatch(removeChannelSuccess({ channelId }));
+  } catch (e) {
+    console.log(e);
+    dispatch(removeChannelFailure());
+  }
+};
+
+export const setModalForm = createAction('MODAL_FORM_SET');
+export const clearModalForm = createAction('MODAL_FORM_CLEAR');

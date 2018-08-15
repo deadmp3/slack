@@ -1,11 +1,12 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { reduxForm } from 'redux-form';
 import { Button, Modal, ModalHeader, ModalBody, Form } from 'reactstrap';
 
-@reduxForm({ form: 'editChannel' })
+@reduxForm({ form: 'removeChannel' })
 export default class NewChannelForm extends React.Component {
-  editChannel = ({ name }) => {
-    this.props.editChannel(this.props.channelId, name);
+  removeChannel = () => {
+    console.log(this.props.channelId);
+    this.props.removeChannel(this.props.channelId);
     this.props.reset();
   }
   render() {
@@ -20,11 +21,10 @@ export default class NewChannelForm extends React.Component {
     return (
       <div>
         <div>
-          <Modal isOpen={modalForm === 'EditChannel'} toggle={setModalForm}>
-            <ModalHeader toggle={setModalForm}>Edit channel</ModalHeader>
+          <Modal isOpen={modalForm === 'removeChannel'} toggle={setModalForm}>
+            <ModalHeader toggle={setModalForm}>Remove channel</ModalHeader>
             <ModalBody>
-              <Form inline autoComplete="off" action="" onSubmit={handleSubmit(this.editChannel)}>
-                <Field className="flex-auto" name="name" required component="input" type="text" />
+              <Form inline autoComplete="off" action="" onSubmit={handleSubmit(this.removeChannel)}>
                 <Button type="submit" className="btn btn-primary" disabled={disabled} onClick={setModalForm}>OK</Button>
               </Form>
             </ModalBody>

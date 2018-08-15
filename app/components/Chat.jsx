@@ -1,6 +1,8 @@
 import React from 'react';
+import { Button, ButtonGroup, ListGroup, ListGroupItem } from 'reactstrap';
 import NewMessageForm from './NewMessageForm';
 import EditChannelForm from './EditChannelForm';
+import RemoveChannelForm from './RemoveChannelForm';
 import { messagesSelector } from '../selectors';
 import connect from '../connect';
 
@@ -10,7 +12,8 @@ const mapStateToProps = (state) => {
     messageCreatingState: state.messageCreatingState,
     channelId: state.currentChannelId,
     channelCreatingState: state.channelCreatingState,
-    modalFormEditChannelActive: state.modalFormEditChannelActive,
+    channelDeletionState: state.channelDeletionState,
+    modalForm: state.modalForm,
   };
   return props;
 };
@@ -25,27 +28,42 @@ export default class Chat extends React.Component {
       channelId,
       addMessage,
       editChannel,
+      removeChannel,
       channelEditingState,
-      modalFormEditChannelActive,
-      toggleModalStateEditChannel,
+      channelDeletionState,
+      modalForm,
+      setModalForm,
     } = this.props;
     return (
       <div className={className}>
-        <EditChannelForm
-          channelId={channelId}
-          editChannel={editChannel}
-          channelEditingState={channelEditingState}
-          modalFormEditChannelActive={modalFormEditChannelActive}
-          toggleModalStateEditChannel={toggleModalStateEditChannel}
-        />
-        {messages.map(({ id, text }) => (
-          <li key={id}>
-            {text}
-          </li>))}
+        <ButtonGroup>
+          <Button onClick={() => setModalForm('EditChannel')}>Edit channel</Button>
+          <Button onClick={() => setModalForm('removeChannel')}>Remove channel</Button>
+        </ButtonGroup>
+        <ListGroup>
+          {messages.map(({ id, text }) => (
+            <ListGroupItem key={id}>
+              {text}
+            </ListGroupItem>))}
+        </ListGroup>
         <NewMessageForm
           channelId={channelId}
           addMessage={addMessage}
           messageCreatingState={messageCreatingState}
+        />
+        <EditChannelForm
+          channelId={channelId}
+          editChannel={editChannel}
+          channelEditingState={channelEditingState}
+          modalForm={modalForm}
+          setModalForm={setModalForm}
+        />
+        <RemoveChannelForm
+          channelId={channelId}
+          removeChannel={removeChannel}
+          channelDeletionState={channelDeletionState}
+          modalForm={modalForm}
+          setModalForm={setModalForm}
         />
       </div>
     );

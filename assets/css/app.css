@@ -2,3 +2,30 @@
   flex: auto;
   margin-right: 10px;
 }
+
+.container .row {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.list-group {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  padding-left: 0;
+  margin-bottom: 0;
+  height: 78vh;
+  overflow-y: scroll;
+  border: #ddd solid 1px;
+  margin: 20px 0;
+}
+
+.btn-group-vertical {
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -ms-flex-align: start;
+  align-items: flex-start;
+  -ms-flex-pack: center;
+  justify-content: start;
+}
